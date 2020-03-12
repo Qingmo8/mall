@@ -39,7 +39,7 @@
       return {
         slideCount: 0,  //元素的个数
         totalWidth: 0,  //swiper的宽度
-        swiperStyle: 0, //swiper样式
+        swiperStyle: {}, //swiper样式
         currentIndex: 1, //当前的index
         scrolling: false, //是否正在滚动
       }
@@ -121,7 +121,7 @@
           this.swiperStyle = swiperEl.style;
         }
         //让swiper元素，显示第一个（目前是显示前面添加的最后一个元素）
-        this.setTransform(-this.totalWidth)
+        this.setTransform(-this.totalWidth);
       },
       /**
        * 拖动事件的处理*/
