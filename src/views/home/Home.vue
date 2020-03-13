@@ -63,13 +63,33 @@
         currentType: 'pop',
         isShowBackTop: false,
         tabOffsetTop: 0,
-        isTabFixed: false
+        isTabFixed: false,
+        saveY: 0,
       }
     },
     computed: {
       showGoods() {
         return this.goods[this.currentType].list
       }
+    },
+    //销毁函数
+    destroyed() {
+      // console.log('home destroyed');
+    },
+    // 进来
+    activated() {
+      // console.log('activated');
+      //进来时调用位置
+      this.$refs.scroll.scrollTo(0,this.saveY,0)
+      //刷新
+      this.$refs.scroll.refresh()
+    },
+    //离开
+    deactivated() {
+      // console.log('deactivated');
+      //离开时记录位置
+      // this.saveY = this.$refs.scroll.scroll.y
+      this.saveY = this.$refs.scroll.getScrollY()
     },
     //生命周期,一开始就活跃
     created() {
