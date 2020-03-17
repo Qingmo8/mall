@@ -34,6 +34,7 @@
   // 网络,工具
   import {getHomeMultidata, getHomeGoods} from "../../network/home";
   import {debounce} from "../../common/utils";
+  import {itemListenerMixin} from "../../common/mixin";
 
   export default {
     name: "Home",
@@ -48,6 +49,7 @@
       Scroll,
       BackTop,
     },
+    mixins: [itemListenerMixin],
     data() {
       //保存一开始请求到的数据
       return {
@@ -72,15 +74,15 @@
         return this.goods[this.currentType].list
       }
     },
-    //销毁函数
-    destroyed() {
-      // console.log('home destroyed');
-    },
+    // //销毁函数
+    // destroyed() {
+    //   // console.log('home destroyed');
+    // },
     // 进来
     activated() {
       // console.log('activated');
       //进来时调用位置
-      this.$refs.scroll.scrollTo(0,this.saveY,0)
+      this.$refs.scroll.scrollTo(0,this.saveY,0);
       //刷新
       this.$refs.scroll.refresh()
     },
@@ -90,6 +92,7 @@
       //离开时记录位置
       // this.saveY = this.$refs.scroll.scroll.y
       this.saveY = this.$refs.scroll.getScrollY()
+      // console.log(this.saveY);
     },
     //生命周期,一开始就活跃
     created() {
@@ -104,17 +107,25 @@
 
     },
     mounted() {
-      //1.图片加载完成的事件监听
-      //防抖操作,50毫秒
-      const refresh = debounce(this.$refs.scroll.refresh,50)
 
-      // 3.监听item中图片是否加载完成  bug
-      this.$bus.$on('itemImageLoad', () => {
-        // console.log('----');
-        //重新再执行，定义高度
-        // this.$refs.scroll.scroll.refresh()
-        refresh()
-      })
+      //3。手动代码点击一次
+      // this.tabClick(0)
+
+
+      /**
+       * 防抖操作重新封装到common->mixin中，下面的也可以用
+       * */
+      // //1.图片加载完成的事件监听
+      // //防抖操作,50毫秒
+      // const refresh = debounce(this.$refs.scroll.refresh,50)
+      //
+      // // 3.监听item中图片是否加载完成  bug
+      // this.$bus.$on('itemImageLoad', () => {
+      //   // console.log('----');
+      //   //重新再执行，定义高度
+      //   // this.$refs.scroll.scroll.refresh()
+      // //   refresh()
+      // })
     },
     methods: {
       /**

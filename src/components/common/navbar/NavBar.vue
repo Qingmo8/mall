@@ -16,7 +16,7 @@
   .nav-bar {
     display: flex;
     height: 44px;
-
+    
     /*针对字体的*/
     line-height: 44px;
     text-align: center;

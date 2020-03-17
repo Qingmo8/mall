@@ -43,8 +43,6 @@
         this.$emit('scroll', position)
       })
 
-
-
       //不封装监听  监听的组件返回按钮需要的坐标
       // this.scroll.scrollTo(0, 0),
 
